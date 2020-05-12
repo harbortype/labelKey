@@ -34,7 +34,15 @@ class labelKey(PalettePlugin):
 		
 		self.dialog = self.paletteView.frame.getNSView()
 		
-		labelColors = GSGlyphsInfo.labelColors()
+		try:
+			labelColors = GSGlyphsInfo.labelColors()
+		except:
+			colorsData = Glyphs.defaults["LabelColors"]
+			labelColors = []
+			for colorData in colorsData:
+				color = NSUnarchiver.unarchiveObjectWithData_(colorData)
+				labelColors.append(color)
+
 		colorKeys = [
 			"red",
 			"orange",
