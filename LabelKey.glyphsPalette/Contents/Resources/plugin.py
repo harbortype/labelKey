@@ -14,6 +14,7 @@ from vanilla import *
 import re
 import os
 import codecs
+from GlyphsApp import GSGlyphsInfo
 from GlyphsApp.plugins import *
 from GlyphsApp.UI import *
 
@@ -33,24 +34,22 @@ class labelKey(PalettePlugin):
 		
 		self.dialog = self.paletteView.frame.getNSView()
 		
-		colorsData = Glyphs.defaults["LabelColors"]
-		colorKeys = ["red",
-					"orange",
-					"brown",
-					"yellow",
-					"lightGreen",
-					"darkGreen",
-					"lightBlue",
-					"darkBlue",
-					"purple",
-					"magenta",
-					"lightGray",
-					"charcoal"]
-		colours = []
-		for colorData in colorsData:
-			color = NSUnarchiver.unarchiveObjectWithData_(colorData)
-			colours.append(color)
-		self.colours = dict(zip(colorKeys, colours))
+		labelColors = GSGlyphsInfo.labelColors()
+		colorKeys = [
+			"red",
+			"orange",
+			"brown",
+			"yellow",
+			"lightGreen",
+			"darkGreen",
+			"lightBlue",
+			"darkBlue",
+			"purple",
+			"magenta",
+			"lightGray",
+			"charcoal"
+			]
+		self.colours = dict(zip(colorKeys, labelColors))
 
 	def update(self, sender):
 		if hasattr(self.paletteView.frame, 'labels'):
